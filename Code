@@ -1,0 +1,21 @@
+#include "mbed.h"
+
+DigitalOut led1(LED1);
+AnalogIn Sensor1(A0);
+
+// main() runs in its own thread in the OS
+int main() {
+float volts = Sensor1.read()*0.0048828125;  // value from sensor * (5/1024)
+int distance = 13*pow(volts, -1); // worked out from datasheet graph
+wait(1000); // slow down serial port 
+  
+  if (distance >= 30)
+  {
+    while (true) 
+    {
+        led1 = !led1;
+        wait(0.5);}
+
+}
+return 1;
+}
